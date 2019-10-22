@@ -7,7 +7,7 @@ function ProtectedRoute({ loggedIn, path, component: Component, exact }) {
   return <Route
     path={path}
     exact={exact}
-    render={props => !loggedIn ? <Redirect to="/auth" /> : <Component {...props} />}
+    render={props => !loggedIn ? <Redirect to="/splash" /> : <Component {...props} />}
   />
 }
 
