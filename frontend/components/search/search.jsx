@@ -33,7 +33,6 @@ class Search extends React.Component {
     }
 
     handleSubmit(e){
-        // console.log('innnnnnnnnnnnnnnnn')
         e.preventDefault();
         fetchFilteredPosts({
             source: this.state.source,

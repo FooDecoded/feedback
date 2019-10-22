@@ -8,13 +8,13 @@ function UserList({ users, includedIds, excludedIds, onSelect}){
             {
                 includedIds ?
                 includedIds.map( user_id => 
-                 <li key={user_id} onClick={() => onSelect(user_id)} className="users-list__item">
-                    <span>{users[user_id].username}</span>
+                 <li className="chat-list-child" key={user_id} onClick={() => onSelect(user_id)}>
                     <img src={users[user_id].profileImage} alt=""/>
+                    <span>{users[user_id].username}</span>
                 </li>) : Object.keys(users).map( user_id => !excludedIds.includes(user_id) &&
-                 <li key={user_id} onClick={() => onSelect(user_id)} className="users-list__item">
-                    <span>{users[user_id].username}</span>
+                 <li className="chat-list-child" key={user_id} onClick={() => onSelect(user_id)} >
                     <img src={users[user_id].profileImage} alt=""/>
+                    <span>{users[user_id].username}</span>
                 </li>)
             }
         </ul>

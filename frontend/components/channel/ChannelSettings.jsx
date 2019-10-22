@@ -11,18 +11,18 @@ class ChannelSettings extends React.Component {
         const { users, currentMembersIds, nonMembersIds, addUserToChannel} = this.props
         return (
             <div>
-                <h4>Members</h4>
+                <h4 className="margin-bottom">Members</h4>
                 <ul>
                     
                     {
-                        currentMembersIds.map(userId => <li key={userId} onClick={() => addUserToChannel(userId)}><img src={users[userId].profileImage} alt="" className="small-avatar threads-list__avatar" /> {users[userId].username}</li> )
+                        currentMembersIds.map(userId => <li className="chat-list-child" key={userId} onClick={() => addUserToChannel(userId)}><img src={users[userId].profileImage} alt=""  /> <span>{users[userId].username}</span></li> )
                     }
                 </ul>
-                <h4>Non Members</h4>
+                <h4 className="margin-bottom margin-top">Non Members</h4>
 
                 <ul>
                     {
-                        nonMembersIds.map(userId => <li key={userId} onClick={() => addUserToChannel(userId)}><img src={users[userId].profileImage} alt="" className="small-avatar threads-list__avatar" />  {users[userId].username}</li>)
+                        nonMembersIds.map(userId => <li className="chat-list-child" key={userId} onClick={() => addUserToChannel(userId)}><img src={users[userId].profileImage} alt="" />  <span>{users[userId].username}</span></li>)
                     }                
                 </ul>
             </div>
