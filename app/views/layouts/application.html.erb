@@ -8,12 +8,50 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%# <%= action_cable_meta_tag %> 
-    <%if logged_in? %>
     <link href="https://fonts.googleapis.com/css?family=Vollkorn&display=swap" rel="stylesheet">
+    <%if logged_in? %>
       <script>
         window.currentUser = { username: "<%=current_user().username%>", id: "<%=current_user().id%>"}
       </script>
+    <%else%>
+      <script type="text/javascript">
+        // images
+        // header.jsx
+        window.logo_URL = "<%= image_url('logo.png') %>" // line 28
+        window.error_URL = "<%= image_url('error.png') %>" // line 52
+        // splash_container.jsx
+        window.dropbox_URL = "<%= image_url('dropbox.png') %>" // line 49-64
+        window.asana_URL = "<%= image_url('asana.png') %>"
+        window.googledrive_URL = "<%= image_url('googledrive.png') %>"
+        window.salesforce_URL = "<%= image_url('salesforce.png') %>"
+        window.jira_URL = "<%= image_url('jira.png') %>"
+        window.zendesk_URL = "<%= image_url('zendesk.png') %>"
+        window.gotomeeting_URL = "<%= image_url('gotomeeting.png') %>"
+        window.onedrive_URL = "<%= image_url('onedrive.png') %>"
+        window.zoom_URL = "<%= image_url('zoom.png') %>"
+        window.giphy_URL = "<%= image_url('giphy.png') %>"
+        window.lattice_URL = "<%= image_url('lattice.png') %>"
+        window.teamline_URL = "<%= image_url('teamline.png') %>"
+        window.dash_URL = "<%= image_url('dash.png') %>"
+        window.outlook_URL = "<%= image_url('outlook.png') %>"
+        window.cisco_URL = "<%= image_url('cisco.png') %>"
+        window.loom_URL = "<%= image_url('loom.png') %>"
+        // slideshow.jsx
+        window.slide0_URL = "<%= image_url('slacc_homepage.png') %>" // line 20
+        window.slide1_URL = "<%= image_url('slacc_file_sharing.png') %>"
+        window.icon0_URL = "<%= image_url('icon_0.png') %>"
+        window.icon1_URL = "<%= image_url('icon_1.png') %>"
+        window.icon0_hover_URL = "<%= image_url('icon_0_hover.png') %>"
+        window.icon1_hover_URL = "<%= image_url('icon_1_hover.png') %>"
+        //homepage
+        window.avatar1_url = "<%= image_url('avatar_1.png') %>"
+        window.avatar2_url = "<%= image_url('avatar_2.png') %>"
+        window.avatar3_url = "<%= image_url('avatar_3.png') %>"
+        
+      </script>
     <%end%>
+
+
   </head>
 
   <body>

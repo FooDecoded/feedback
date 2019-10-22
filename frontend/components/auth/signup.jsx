@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import { signup } from '../../actions/session_actions'
+import Header from '../splash/header/header'
 
 class Signup extends React.Component {
     constructor(props){
@@ -31,18 +32,40 @@ class Signup extends React.Component {
         let {errors} = this.props;
         return(
 
-                <form className="auth-form" onSubmit={this.handleSubmit}>
-                    <input  className="auth-form__input" placeholder="Username" value={this.username} onChange={this.handleInput("username")} />
-                    <input className="auth-form__input" placeholder="Password" value={this.password} type="password" onChange={this.handleInput("password")} />
-                    <input className="auth-form__input" placeholder="Email" value={this.email} onChange={this.handleInput("email")} />
-                    <input  className="auth-form__submit" type="submit" value="Signup"/>
-                    <ul>
-                        { 
-                            errors.map( error => <li key={error}>{error}</li> )
-                        }
+            <div className="form-main">
+            {errors.length > 0 &&
+                <ul className="session-errors">
+                    {errors.map((error, idx) => <li key={idx}>
+                        <div className="error-icon"></div>
+                        <p>{error}</p>
+                    </li>)}
+                </ul>
+            }
+            <form onSubmit={this.handleSubmit}>
+                {errors.length > 0 &&
+                    <ul className="session-errors">
+                        {errors.map((error, idx) => <li key={idx}>
+                            <div className="error-icon"></div>
+                            <p>{error}</p>
+                        </li>)}
                     </ul>
-                </form>
-            
+                }
+                <div className="form-header">
+                    <h1>Sign Up</h1>
+                    <p>Enter your <strong>email address</strong> and <strong>password</strong></p>
+                </div>
+                <div className="form-content">
+                    <div className="form-inputs">
+                        <input type="text" placeholder="you@example.com" value={this.state.email} onChange={this.handleInput('username')} required></input>
+                        <input type="email" placeholder="you@example.com" value={this.state.email} onChange={this.handleInput('email')} required></input>
+                        <input type="password" placeholder="password" value={this.state.password} onChange={this.handleInput("password")} required></input>
+                    </div>
+                    <div className="form-submit">
+                        <input className="submit" type="submit" value="Sign Up Now!"></input>
+                    </div>
+                </div>
+            </form>
+        </div>
         )
     }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import { login } from '../../actions/session_actions'
+import Header from '../splash/header/header'
 
 class Login extends React.Component {
     constructor(props){
@@ -27,17 +28,42 @@ class Login extends React.Component {
 
     render(){
         let {errors} = this.props;
+
         return(
-                <form className="auth-form" onSubmit={this.handleSubmit}>
-                    
-                    <input placeholder="Username" className="auth-form__input" value={this.username} onChange={this.handleInput("username")} />
-                    <input placeholder="Password" type="password" className="auth-form__input" value={this.password} onChange={this.handleInput("password")} />
-                    <input className="auth-form__submit" type="submit" value="login"/>
-                    
-                    <ul>
-                        { errors.map( error => <li key={error}>{error}</li> )}
+
+            <div className="form-main">
+                {errors.length > 0 &&
+                    <ul className="session-errors">
+                        {errors.map((error, idx) => <li key={idx}>
+                            <div className="error-icon"></div>
+                            <p>{error}</p>
+                        </li>)}
                     </ul>
+                }
+                <form onSubmit={this.handleSubmit}>
+                    {errors.length > 0 &&
+                        <ul className="session-errors">
+                            {errors.map((error, idx) => <li key={idx}>
+                                <div className="error-icon"></div>
+                                <p>{error}</p>
+                            </li>)}
+                        </ul>
+                    }
+                    <div className="form-header">
+                        <h1>Login</h1>
+                        <p>Enter your <strong>email address</strong>, <strong>password</strong>, and <strong>display name</strong></p>
+                    </div>
+                    <div className="form-content">
+                        <div className="form-inputs">
+                            <input type="text" placeholder="you@example.com" value={this.state.email} onChange={this.handleInput('username')} required></input>
+                            <input type="password" placeholder="password" value={this.state.password} onChange={this.handleInput("password")} required></input>
+                        </div>
+                        <div className="form-submit">
+                            <input className="submit" type="submit" value="Login"></input>
+                        </div>
+                    </div>
                 </form>
+            </div>
         )
     }
 }
