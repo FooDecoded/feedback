@@ -32,7 +32,7 @@ class Slideshow extends React.Component {
     render() {
         const { images, currentIdx } = this.state;
         return (
-            <div className="splash-slideshow">
+            <div className="splash-slideshow no-scroll">
                 <Slide image={images[currentIdx]}/>
                 <nav>
                     <ul>

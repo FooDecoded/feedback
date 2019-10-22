@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { setActiveWorkspace, fetchSubscribedWorkplaces, createWorkspace } from '../../actions/workspace_actions'
-import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+
 
 class WorkspaceList extends React.Component {
     constructor(props){
@@ -30,17 +31,17 @@ class WorkspaceList extends React.Component {
     }
 
     render(){
-        let {workspaces, setActiveWorkspace} = this.props;
+        let {workspaces, setActiveWorkspace, history} = this.props;
         return (
 
             <div className="workspace-list-container">
                 <ul className="workspace-list">
                     {
                         workspaces.map( ({id, name}) => 
-                            <li key={id} className="workspace-list__item">
-                            <Link onClick={ () => setActiveWorkspace(id) } to={`/workspaces/${id}`}>
+                            <li key={id} className="workspace-list__item" onClick={ () => {setActiveWorkspace(id) ; history.push(`/workspaces/${id}`) }}>
+                            <a className="workspace-link" >
                                 {name}
-                            </Link>
+                            </a>
                             </li>
                             )
                     }
@@ -69,4 +70,4 @@ function mapDispatchToProps(dispatch, ownProps){
         setActiveWorkspace: (workspaceId) => dispatch(setActiveWorkspace(workspaceId))
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(WorkspaceList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(WorkspaceList));
