@@ -8,9 +8,9 @@ function ChatView({ chatList, users, sendMessage, channelId}){
     return (
         <div className="channel_container">
             <section className="channel__threads-list">
-                <section className="channel__header">
-                    <h4>Messages needs to be dynamic</h4>
-                </section>
+                {/* <section className="channel__header">
+                    <h4>Chat Preview</h4>
+                </section> */}
                 <MessageList users={users} chatList={chatList} />
                 <PostForm action={sendMessage} keyName="chat_channel_id" id={channelId} />
             </section>

@@ -8,7 +8,7 @@ export default function Sidebar(
         addChannel,  chatChannels, channelList, 
         users, currentWorkspace, 
          receiveMessage, currentUser, isAdmin,
-        receiveComment, receivePost, changePost, history, notifications}){
+        receiveComment, receivePost, changePost, history, notifications, match}){
     return(
         <section className="sidebar">
 
@@ -40,6 +40,7 @@ export default function Sidebar(
                 currentUser={currentUser}
                 history={history}
                 notifications={notifications.messages}
+                match={match}
             />
         </section>
     )

@@ -7,7 +7,7 @@ class Search extends React.Component {
     constructor(props){
         super(props);
         this.state ={
-            source: "posts",
+            source: "channels",
             text_like: "",
             created_before: null,
             created_after: null,
@@ -65,25 +65,31 @@ class Search extends React.Component {
                         onChange={this.handleInput("text_like")} 
                         value={text_like} />
                     <div className="search-form__source">
-                        <label>Source</label>
-                        <input className="search-form__channel-radio" type="radio" name="source" onChange={this.handleInput("source")} value="channels" checked={source === "channels"} />
-                        <input className="search-form__chat-radio" type="radio" name="source" onChange={this.handleInput("source")} value="chats" checked={source === "chats"} />
+                        <label class="radio">
+                            <input type="radio" name="source" value="channels" checked={source === "channels"} onChange={this.handleInput("source")}/>
+                            <span>Channels</span>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="source" value="chats" checked={source === "chats"} onChange={this.handleInput("source")}/>
+                            <span>Chats</span>
+                        </label>
                     </div>
 
-                    <label>
-                        Channel
-                        <select value={source_channel} onChange={this.handleInput("source_channel")}>
+                    <label className="search-select-filters">
+                        Source Channel
+                        <select   disabled={this.state.source == "chats"} value={source_channel} onChange={this.handleInput("source_channel")}>
                             {
                                 channels.map(channel => <option key={channel.id} value={channel.id}>{channel.name}</option>)
                             }
                         </select>
-                        People
-                        <select value={created_by} onChange={this.handleInput("created_by")}>
+                    </label>
+                    <label className="search-select-filters">
+                        Created By
+                        <select   value={created_by} onChange={this.handleInput("created_by")}>
                             {
                                 Object.values(users).map(user => <option key={user.id} value={user.id}>{user.username}</option> )
                             }
                         </select>
-                        {/* :text_like, :source_channel, :source, :created_by, :created_before, :created_after */}
                     </label>
                     <input 
                         className="submit"

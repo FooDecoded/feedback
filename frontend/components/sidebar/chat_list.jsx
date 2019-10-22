@@ -85,7 +85,7 @@ export default class ChatList extends React.Component {
                             let chatChannelId = chatChannels.receivers_id[userIdx];
                             return <li key={userIdx}  
                                        
-                                        className="sidebar__channels-list-item"
+                                        className={`sidebar__channels-list-item`}
                                     >
                                     {
                                         
@@ -102,18 +102,16 @@ export default class ChatList extends React.Component {
 
 
                 <Modal toggleModal={this.toggleModal} showModal={this.state.showModal} headerText="Open New Chat">
-                    <ul>
+                    <ul >
                         {
                             Object.keys(users).filter(user_id => !(user_id == currentUser.id || Object.values(chatChannels.receivers_id).includes(user_id) ) )
                                 .map(userId => 
-                                    <li key={userId} onClick={this.handleClick(userId)}>
+                                    <li className="chat-list-child" key={userId} onClick={this.handleClick(userId)}>
                                         <img src={users[userId].profileImage} alt="" className="small-avatar threads-list__avatar" /> {users[userId].username}
                                 </li> )
                         }
                     </ul>
                 </Modal>
-
-
 
             </section>
             )    

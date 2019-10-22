@@ -342,6 +342,7 @@ Home Page
     &__item {
         // flex: 1;
         display: flex;
+        padding-top: 10px;
         // align-items: center;
         transition: all 0.3s ease-in-out;
         &:hover{
@@ -636,8 +637,98 @@ a {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
-  top: 8%;
+  top: 20%;
 }
+
+
+
+
+$radioSize: 14px;
+$radioBorder: #D1D7E3;
+$radioActive: #5D9BFB;
+
+.radio {
+    margin: 3px 0;
+    display: block;
+    cursor: pointer;
+    input {
+        display: none;
+        & + span {
+            line-height: $radioSize;
+            height: $radioSize;
+            padding-left: $radioSize;
+            display: block;
+            position: relative;
+            &:not(:empty) {
+                padding-left: $radioSize + 8;
+            }
+            &:before,
+            &:after {
+                content: '';
+                width: $radioSize;
+                height: $radioSize;
+                display: block;
+                border-radius: 50%;
+                left: 0;
+                top: 0;
+                position: absolute;
+            }
+            &:before {
+                background: $radioBorder;
+                transition: background .2s ease, transform .4s cubic-bezier(.175, .885, .32, 2);
+            }
+            &:after {
+                background: #fff;
+                transform: scale(.78);
+                transition: transform .6s cubic-bezier(.175, .885, .32, 1.4);
+            }
+        }
+        &:checked + span {
+            &:before {
+                transform: scale(1.04);
+                background: $radioActive;
+            }
+            &:after {
+                transform: scale(.4);
+                transition: transform .3s ease;
+            }
+        }
+    }
+    &:hover {
+        input {
+            & + span {
+                &:before {
+                    transform: scale(.92);
+                }
+                &:after {
+                    transform: scale(.74);
+                }
+            }
+            &:checked + span {
+                &:after {
+                    transform: scale(.4);
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .modal-dialog {
   background: #fefefe;
@@ -646,10 +737,10 @@ a {
   margin-left: -200px;
   text-align:center;
   position: fixed;
-  left: 27%;
+  left: 50%;
   top: -100%;
   z-index: 11;
-  width: 80%;
+//   width: 360px;
   box-shadow:0 5px 10px rgba(0,0,0,0.3);
   -webkit-transform: translate(0, -500%);
   -ms-transform: translate(0, -500%);
@@ -695,8 +786,8 @@ a {
         border-radius: 0px 3px 3px 0px;
         color: #a9a9a9;
         margin-bottom: 1em;
-        padding: 0 16px;
-        height: 50px;
+        padding: 9px 10px;
+        // height: 50px;
         transition: border-color 0.2s ease-in-out;
         &:focus {
             border-color: #5AC5F0;
@@ -716,6 +807,16 @@ a {
     }
 }
 
+.invitations {
+    margin-right: 7.5px;
+    padding-right: 7.5px;
+    border-right: 2px solid #401B40;
+}
+
+.margin-bottom {
+    margin-bottom: 10px;
+}
+
 .manage-workspace {
     display: flex;
     justify-content: space-between;
@@ -728,11 +829,50 @@ a {
 }
 
 .invitation-list {
-    overflow: scroll;
+    // overflow: scroll;
     &__item {
         width: 100%;
         max-width: 100%;
+        background-color: #EEEEEE;
+        border: 1px solid #DDDDDD;
     }
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+}
+
+.list-child {
+    background-color: #EEEEEE;
+    border: 1px solid #DDDDDD;
+}
+
+// invitation-form__input add-channel-form__text-input
+
+.invitation-form__input {
+    background-color: #3b4148;
+    border-radius: 0px 3px 3px 0px;
+    color: #a9a9a9;
+    margin-bottom: .5em;
+    padding: 9px 10px;
+    transition: border-color 0.2s ease-in-out;
+    &:focus {
+        border-color: #5AC5F0;
+    }
+    flex: 1 1 auto;
+    margin-right: 0px; 
+}
+
+.invitation-form__submit {
+    background: #b5cd60;
+    border: 0;
+    padding: 9px 10px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    font-weight: bold;
 }
 
 .input{
@@ -765,10 +905,11 @@ a {
             background: #16aa56;
 }
 
+
 .invitation-form {
     display: flex;
     justify-content: space-between;
-
+    // margin-bottom: 15px;
     &__input{
         border-radius: 0px 3px 3px 0px;
         color: #a9a9a9;
@@ -802,15 +943,25 @@ a {
 }}
 }
 
+.search-select-filters {
+    position: relative;
+    top: -9px;
+}
+
 .search-form {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 10px;
 
+    
+
     &__source {
         display: flex;
         flex-direction: column;
+        margin-left: 20px;
+        position: relative;
+        top: -7px;
     }
 
     &__channel-radio{
@@ -928,6 +1079,19 @@ a {
     align-items: center;
 }
 
-.chat-list {
-    
+.margin-top {
+    margin-top: 10px;
 }
+
+.chat-list-child {
+    background-color: #EEEEEE;
+    border: 1px solid #DDDDDD;
+    transition: all 0.3s ease-in-out;
+    color: black;
+
+    &:hover{
+        background-color: #555;
+        color: white;
+    }
+}
+// first / last border radius

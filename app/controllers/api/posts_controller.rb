@@ -171,7 +171,7 @@ class Api::PostsController < ApplicationController
         filters = filters_params
         # debugger
         if(filters[:source] == "channels")
-            debugger
+            # debugger
             @posts = Post.joins(:channel).where("channels.workspace_id = #{filters[:workspace_id]}")
             # where("workspace_id = #{filters[:workspace_id]}")
             @posts = @posts.text_like(filters[:text_like]) if filters[:text_like].present? && filters[:text_like] != ""

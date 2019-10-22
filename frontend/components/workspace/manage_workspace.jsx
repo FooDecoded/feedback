@@ -66,13 +66,13 @@ class ManageWorkspace extends React.Component {
         {
             !this.state.loading ?
             <div className="manage-workspace">
-                    <div>
+                    <div className="invitations">
                         <h4>Send Invitations</h4>
                         <form className="invitation-form" onSubmit={this.handleSubmit}>
-                                <input placeholder="Enter Email Here" className="invitation-form__input" type="text" onChange={this.handleEmailChange} />
-                                <input className="invitation-form__submit" type="submit" />
+                                <input placeholder="Enter Email Here" className="invitation-form__input add-channel-form__text-input" type="text" onChange={this.handleEmailChange} />
+                                <input className="invitation-form__submit" type="submit" value="Send it!" />
                         </form>
-                        <h4>Invitations Sent</h4>
+                        <h4 className="margin-top">Invitations Sent</h4>
                         <ul className="invitation-list">
 
                                 {this.state.invitations.map(invitation => <li className="invitation-list__item">{invitation.email}</li>)}
@@ -80,17 +80,17 @@ class ManageWorkspace extends React.Component {
                     </div>
                     <div>
                             <h4>Current Admins</h4>
-                        <ul>
+                        <ul className="list">
                             
                             {
-                                admins.map(user => <li onClick={this.handlesetAdmin(user.id)} key={user.id}>{user.username}</li>)
+                                admins.map(user => <li className="list-child" onClick={this.handlesetAdmin(user.id)} key={user.id}>{user.username}</li>)
                             }
                         </ul>
-                            <h4>Other Users</h4>
-                        <ul>
+                            <h4 className="margin-top">Non Admin Users</h4>
+                        <ul className="list">
                                 
                             {
-                                nonAdmins.map(user => <li onClick={this.handlesetAdmin(user.id)} key={user.id}>{user.username}</li>)
+                                nonAdmins.map(user => <li className="list-child" onClick={this.handlesetAdmin(user.id)} key={user.id}>{user.username}</li>)
                             }
                         </ul>
                     </div>

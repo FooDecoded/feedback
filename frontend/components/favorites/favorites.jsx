@@ -1,23 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import { favoritePost } from '../../actions/posts_actions'
+import Pagination from '../ui/pagination'
 
-function Favorites({ favoritePosts, favoriteMessages, favoritePost}){
+function Favorites({ favoritePosts, favoritePost, users}){
     return (
         <section>
             <h4>Favorite Posts</h4>
-            <ul>
-                
-                {
-                    favoritePosts.map(post => <li onClick={() => favoritePost({id: post.id}) } key={post.id}>{post.body}</li> )
-                }
-            </ul>
-            <h4>Favorite Messages</h4>
-            <ul>
-                {
-                    favoriteMessages.map(message => <li key={message.id}>{message.body}</li>)
-                }            
-            </ul>
+            <Pagination items={favoritePosts} users={users} />
         </section>
     )
 }
@@ -26,7 +16,7 @@ function mapStateToProps(state){
     // debugger
     return {
         favoritePosts: Object.values(state.entities.favorites.posts),
-        favoriteMessages: Object.values(state.entities.favorites.messages)
+        users: state.entities.users
     }
 }
 
