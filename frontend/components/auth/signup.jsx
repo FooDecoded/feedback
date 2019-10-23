@@ -62,7 +62,7 @@ class Signup extends React.Component {
                 </div>
                 <div className="form-content">
                     <div className="form-inputs">
-                        <input type="text" placeholder="you@example.com" value={this.state.email} onChange={this.handleInput('username')} required></input>
+                        <input type="text" placeholder="you@example.com" value={this.state.username} onChange={this.handleInput('username')} required></input>
                         <input type="email" placeholder="you@example.com" value={this.state.email} onChange={this.handleInput('email')} required></input>
                         <input type="password" placeholder="password" value={this.state.password} onChange={this.handleInput("password")} required></input>
                     </div>
