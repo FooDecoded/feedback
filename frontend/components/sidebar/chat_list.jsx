@@ -21,7 +21,6 @@ export default class ChatList extends React.Component {
         return () => {
             // if
             if (this.props.chatChannels.receivers_id[id]){
-                // this.props.showChatChannel(this.props.chatChannels.receivers_id[id])
                 this.props.history.push(`/workspaces/${this.props.currentWorkspace.id}/chats/${this.props.chatChannels.receivers_id[id]}`)
                 this.setState({showModal: false})
             }
@@ -33,7 +32,6 @@ export default class ChatList extends React.Component {
             )
         }
     }
-    // Need to do something for newly created chat channels cuz this does't cover that
     componentDidMount(){
         Object.keys(this.props.chatChannels.messages).forEach( (channel_id) => {
             App.cable.subscriptions.create({ channel: "ChatChannel", channel_id }, 

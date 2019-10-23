@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import { signup } from '../../actions/session_actions'
+import { signup, login } from '../../actions/session_actions'
 import Header from '../splash/header/header'
 
 class Signup extends React.Component {
@@ -23,15 +23,21 @@ class Signup extends React.Component {
 
     handleSubmit(e){
         e.preventDefault();
-        console.log("fired")
+        // console.log("fired")
         this.props.signup( { ...this.state } )
         .then( () => this.props.history.push("/workspaces") )
+    }
+
+    demoLogin(e) {
+        e.preventDefault();
+        this.props.login({ username: 'demo', password: 'password' }).then(() => this.props.history.push('/workspaces'));
     }
 
     render(){
         let {errors} = this.props;
         return(
-
+            <>
+            <Header/>
             <div className="form-main">
             {errors.length > 0 &&
                 <ul className="session-errors">
@@ -62,17 +68,23 @@ class Signup extends React.Component {
                     </div>
                     <div className="form-submit">
                         <input className="submit" type="submit" value="Sign Up Now!"></input>
+                        <div className="demo-login">
+                                DOn't have an account? 	&nbsp; 	&nbsp;
+                                <a className="demo-button" onClick={this.demoLogin.bind(this)}>Try the demo!</a>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
+        </>
         )
     }
 }
 
 function mapDispatchToProps(dispatch){
     return {
-        signup: (user) => dispatch( signup(user) )
+        signup: (user) => dispatch( signup(user) ),
+        login: (user) => dispatch(login(user))
     }
 }
 

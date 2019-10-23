@@ -26,11 +26,16 @@ class Login extends React.Component {
         .then( () => this.props.errors.length == 0 && this.props.history.push("/workspaces") )
     }
 
+    demoLogin(e) {
+        e.preventDefault();
+        this.props.login({ username: 'demo', password: 'password' }).then(() => this.props.history.push('/workspaces'));
+    }
+
     render(){
         let {errors} = this.props;
 
-        return(
-
+        return(<>
+            <Header/>
             <div className="form-main">
                 {errors.length > 0 &&
                     <ul className="session-errors">
@@ -60,10 +65,15 @@ class Login extends React.Component {
                         </div>
                         <div className="form-submit">
                             <input className="submit" type="submit" value="Login"></input>
+                            <div className="demo-login">
+                                DOn't have an account? &nbsp; 	&nbsp;
+                                <a className="demo-button" onClick={this.demoLogin.bind(this)}>Try the demo!</a>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
+            </>
         )
     }
 }
