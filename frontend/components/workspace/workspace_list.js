@@ -23,7 +23,6 @@ class WorkspaceList extends React.Component {
     }
     
     handleSubmit(e){
-        // debugger
         e.preventDefault()
         console.log(e)
         this.props.createWorkspace(Object.assign({}, this.state))

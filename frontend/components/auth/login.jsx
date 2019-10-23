@@ -23,7 +23,7 @@ class Login extends React.Component {
     handleSubmit(e){
         e.preventDefault();
         this.props.login( { ...this.state } )
-        .then( () => this.props.history.push("/workspaces") )
+        .then( () => this.props.errors.length == 0 && this.props.history.push("/workspaces") )
     }
 
     render(){

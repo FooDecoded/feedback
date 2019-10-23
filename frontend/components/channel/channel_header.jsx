@@ -47,9 +47,6 @@ class ChannelHeadrer extends React.Component {
                     <i className="channel-widget fa fa-thumb-tack" 
                         onClick={this.handleToggle("showPinnedPosts")}
                     aria-hidden="true"></i>
-                    <i className="channel-widget fa fa-info-circle" aria-hidden="true"
-                        onClick={this.handleToggle("showInfo")}
-                    ></i>
                     {
                         channel.ownerId == currentUserId && <i className="channel-widget fa fa-cog" aria-hidden="true"
                             onClick={this.handleToggle("showSettings")}

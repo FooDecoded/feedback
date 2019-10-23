@@ -50,12 +50,11 @@ export default class ChatList extends React.Component {
             })
     }
     shouldComponentUpdate(nextProps) {
-        // && Object.keys(nextProps.chatChannels.messages).length != Object.keys(this.props.chatChannels.messages).length
-        // debugger
         const channelIds = Object.keys(nextProps.chatChannels.messages)
         if (channelIds.length != +this.state.channelsCount) {
             const channelId = channelIds[channelIds.length - 1]
-            App.cable.subscriptions.create({ channel: "ChatChannel", channel_id: channelId },
+            JSON.parse(App.cable.subscriptions.subscriptions[App.cable.subscriptions.subscriptions.length -1].identifier).channel_id != String(channelId) 
+            && App.cable.subscriptions.create({ channel: "ChatChannel", channel_id: channelId },
                 {
                     received: (message) => {
                         this.props.receiveMessage(message)

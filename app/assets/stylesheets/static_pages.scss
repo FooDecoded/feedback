@@ -235,15 +235,18 @@ Home Page
         &:hover{
             background: #350D36;
             opacity: .5;
-            color: rgb(207,195,207);
+            color: rgb(185, 155, 185);
         }
 
         a {
         padding: 0;
         float: none;
+        color: #CFC3CF;
+        transition: all 0.2s ease-in-out;
         &:hover {
             background: none;
-            color: none; 
+            color: #FFF; 
+            // font-weight: bold;
         }
     }
     }
@@ -252,12 +255,14 @@ Home Page
 
 .post-channel {
     position: relative;
+
     &::before {
         content: "# "
     }
     a {
         padding: 0;
         float: none;
+        color: #CFC3CF;
         &:hover {
             background: none;
             color: none; 
@@ -328,7 +333,7 @@ Home Page
 
     &__threads-list {
         flex: 1 1 auto;
-        padding-right: 10px;
+        // padding-right: 10px;
         display: flex;
         flex-direction: column;
     }
@@ -1042,6 +1047,7 @@ $radioActive: #5D9BFB;
 
 .message-form {
     width: 100%;
+    margin-bottom: 1px;
 }
 
 .streched-input {
@@ -1053,7 +1059,7 @@ $radioActive: #5D9BFB;
 
  &:focus {
      outline: none;
-     border: 2px solid #555;
+     border: 2px solid #4CAF50;
  }
 }
 

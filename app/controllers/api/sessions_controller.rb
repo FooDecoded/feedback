@@ -10,7 +10,9 @@ class Api::SessionsController < ApplicationController
             login(@user)
             render :show
           else
-            render json: ["wrong credintials"], status: 404         
+            # debugger
+            # render json: ["wrong credintials"], status: 404    
+            render json: {errors: ['wrong user or password']}
           end
       end
       
