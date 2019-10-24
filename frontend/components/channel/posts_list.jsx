@@ -42,7 +42,11 @@ class PostsList extends React.Component {
     }
 
     render(){
-        let {addComment, channelId, favoritedPosts, favoritePost, currentUserId, pinPost, posts, users, changeCurrentPost, postsLoaded, comments, addLike, likes} = this.props
+        let {updatePost, addComment, channelId, 
+            favoritedPosts, favoritePost, currentUserId, 
+            pinPost, posts, users, changeCurrentPost, postsLoaded, 
+            comments, addLike, likes} = this.props
+            
     return (
         <ul ref="ul" className="threads-list" onScroll={this.fetchMoreOnScroll}>
             {!postsLoaded[channelId] && <div className="center-loader"><div className="loader"/></div>}

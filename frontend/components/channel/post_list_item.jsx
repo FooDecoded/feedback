@@ -94,8 +94,8 @@ export default class PostListItem extends React.Component {
                 <img src={users[post["author_id"]].profileImage} alt="" className="small-avatar threads-list__avatar"/>                                    
                 <div>
                     <input className="edit-form__text" onChange={this.changeBody} type="text" value={this.state.body}/>
-                    <input className="btn" onClick={this.toggleForm} type="button" value="Cancel"/>
-                    <input className="btn" onClick={this.updatePost} type="button" value="Save Changes"/>
+                    <input className="submit" onClick={this.toggleForm} type="button" value="Cancel"/>
+                    <input className="submit submit-cancel" onClick={this.updatePost} type="button" value="Save"/>
                 </div>
             </form>
         ) 
