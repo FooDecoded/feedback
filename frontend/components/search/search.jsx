@@ -2,6 +2,8 @@ import React from 'react'
 import { fetchFilteredPosts } from '../../utils/posts.utils'
 import {connect} from 'react-redux'
 import Pagination from '../ui/pagination'
+import ShowPost from './ShowPost'
+import { addComment } from '../../actions/posts_actions'
 
 class Search extends React.Component {
     constructor(props){
@@ -13,7 +15,8 @@ class Search extends React.Component {
             created_after: null,
             created_by: undefined,
             source_channel: undefined,
-            result: []
+            result: [],
+            showPost: null
         }
         this.toggleModal = this.toggleModal.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -34,6 +37,7 @@ class Search extends React.Component {
 
     handleSubmit(e){
         e.preventDefault();
+        this.setState({showPost: null})
         fetchFilteredPosts({
             source: this.state.source,
             text_like: this.state.text_like,
@@ -44,17 +48,20 @@ class Search extends React.Component {
             workspace_id: this.props.workspaceId
         })
         .then( (posts) => { 
-            // debugger
             posts = posts || []  
             this.setState({result: posts})} )
     }
 
+    changeShowedPost(post){
+        this.setState({showPost: post.id})
+    }
+
+
     render(){
-        let {channels, users} = this.props;
+        let {channels, users, comments, addComment} = this.props;
         let { source, text_like, created_after, created_before, created_by, source_channel, result} = this.state;
-        // debugger
         return(
-            <div>
+            <div className="search-modal">
                 <form className="search-form"  onSubmit={this.handleSubmit}>
                     <input 
                         className="search-form__text"
@@ -94,7 +101,11 @@ class Search extends React.Component {
                         className="submit"
                         type="submit" value="Search"  />
                 </form>
-                <Pagination items={result} users={users}/>
+                <div className="flex-half">
+                    <Pagination items={result} users={users} changeShowedPost={this.changeShowedPost.bind(this)} />
+                    {this.state.showPost && <ShowPost post={result.filter( post => post.id == this.state.showPost )[0]} addComment={addComment} comments={comments[this.state.showPost]} users={users}  />}
+                </div>
+                {/* <Pagination items={} users={users}/> */}
             </div>
         )
     }
@@ -103,8 +114,15 @@ class Search extends React.Component {
 function mapStateToProps(state){
     return {
         users: state.entities.users,
-        channels: Object.values(state.entities.channels)
+        channels: Object.values(state.entities.channels),
+        comments: state.entities.comments
     }
 }
 
-export default connect(mapStateToProps)(Search)
+function mapDispatchToProps(dispatch){
+    return {
+        addComment: (comment) => { dispatch(addComment(comment)) },
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search)

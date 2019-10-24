@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import { favoritePost } from '../../actions/posts_actions'
 import Pagination from '../ui/pagination'
 import ShowPost from '../search/ShowPost'
+import { addComment } from '../../actions/posts_actions'
 
 class Favorites extends React.Component{
     constructor(props){
@@ -18,13 +19,13 @@ class Favorites extends React.Component{
     }
 
     render (){
-        let { favoritePosts, users, favoritePostsArray, comments} = this.props
+        let { favoritePosts, users, favoritePostsArray, comments, addComment} = this.props
         return (
             <section >
                 <h4>Favorite Posts</h4>
                 <div className="flex-half">
                     <Pagination items={favoritePostsArray} users={users} changeShowedPost={this.changeShowedPost} />
-                    {this.state.showPost && <ShowPost post={favoritePosts[this.state.showPost]} comments={comments[this.state.showPost]} users={users}  />}
+                    {this.state.showPost && <ShowPost post={favoritePosts[this.state.showPost]} addComment={addComment} comments={comments[this.state.showPost]} users={users}  />}
                 </div>
             </section>
         )
@@ -42,8 +43,10 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch) {
     return {
-        favoritePost: (post) => dispatch(favoritePost(post))
+        favoritePost: (post) => dispatch(favoritePost(post)),
+        addComment: (comment) => { dispatch(addComment(comment)) },
     }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

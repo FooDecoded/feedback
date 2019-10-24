@@ -19,7 +19,6 @@ export function fetchSubscribedChannels(channel){
   }
 
   export function addUserToChannel(channel){
-    // console.log(`/api/channels/${channel.channel_id}/add_user`)
     return $.ajax({
       method: "post",
       url: `/api/channels/${channel.channel_id}/add_user`,
@@ -29,7 +28,4 @@ export function fetchSubscribedChannels(channel){
     })
   }
 
-  // window.addUserToChannel = addUserToChannel
-  // window.fetchSubscribedChannels = fetchSubscribedChannels
-  // window.addChannel = addChannel
 

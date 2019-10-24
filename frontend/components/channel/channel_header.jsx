@@ -33,7 +33,6 @@ class ChannelHeadrer extends React.Component {
     render(){
         let { showSettings, showInfo, showUsers, showSearch, showFavorites, showPinnedPosts } = this.state;
         let { channel, posts, users, currentUserId, workspaceId} = this.props;
-        // debugger
         return (
             
             <section className="channel__header">
@@ -63,15 +62,13 @@ class ChannelHeadrer extends React.Component {
                     <Favorites/>
                 </Modal>
                 <Modal showModal={showUsers} toggleModal={this.handleToggle("showUsers")} headerText={"Channel User"}><UserList includedIds={channel.members}/></Modal>
-                <Modal showModal={showSettings} toggleModal={this.handleToggle("showSettings")} headerText={"Channel Settings"}>
-                    {/* <UserList excludedIds={channel.members} onSelect={ (member_id) => addUserToChannel({member_id, channel_id: channel.id}) }/> */}
+                <Modal showModal={showSettings} toggleModal={this.handleToggle("showSettings")} headerText={"Channel Settings (Click on users to add/remove them)"}>
                     <ChannelSettings/>
                 </Modal>
                 <Modal showModal={showSearch} toggleModal={this.handleToggle("showSearch")} headerText="Search For Stuff">
                     <Search workspaceId={workspaceId}/>
                 </Modal>
                 <Modal showModal={showPinnedPosts} toggleModal={this.handleToggle("showPinnedPosts")} headerText="Pinned Posts">
-                    {/* <Pagination items={posts.filter(post => post.pinned)} users={users} /> */}
                     <Pinned/>
                 </Modal>
             </section>

@@ -1,7 +1,6 @@
 import React from 'react'
 
-export default function showPost({post, users, comments}){
-    // debugger
+export default function showPost({post, users, comments, addComment}){
         return (
             <div className="showPost">
             <li className="threads-list__item border-bottom" key={post.id} >
@@ -27,7 +26,8 @@ export default function showPost({post, users, comments}){
                     <form className="message-form  align-bottom" action="" 
                         onSubmit={ (e) => {  
                             e.preventDefault();
-                            addComment({ body: e.target.children.comment_body.value, post_id: currentPost.id })
+                            addComment({ body: e.target.children.comment_body.value, post_id: post.id })
+                            e.target.children.comment_body.value = ""
                         } }>
                         
                         <input className="streched-input" placeholder="Add a comment!" name="comment_body" type="text"/>

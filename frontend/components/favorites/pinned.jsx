@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import Pagination from '../ui/pagination'
 import ShowPost from '../search/ShowPost'
 import { withRouter } from 'react-router-dom';
+import { addComment } from '../../actions/posts_actions'
 
 class Pinned extends React.Component{
     constructor(props){
@@ -19,14 +20,14 @@ class Pinned extends React.Component{
     }
 
     render (){
-        let { pinnedPosts, users, comments} = this.props
+        let { pinnedPosts, users, comments, addComment} = this.props
         // debugger
         return (
             <section >
                 <h4>Pinned Posts</h4>
                 <div className="flex-half">
                     <Pagination items={pinnedPosts} users={users} changeShowedPost={this.changeShowedPost} />
-                    {this.state.showPost && <ShowPost post={this.state.currentPost} comments={comments[this.state.showPost]} users={users}  />}
+                    {this.state.showPost && <ShowPost post={this.state.currentPost} comments={comments[this.state.showPost]} users={users} addComment={addComment}  />}
                 </div>
             </section>
         )
@@ -44,7 +45,8 @@ function mapStateToProps(state, ownProps){
 
 function mapDispatchToProps(dispatch) {
     return {
-        favoritePost: (post) => dispatch(favoritePost(post))
+        favoritePost: (post) => dispatch(favoritePost(post)),
+        addComment: (comment) => { dispatch(addComment(comment)) },
     }
 }
 

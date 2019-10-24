@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     end
     resources :channels do
       post "add_user", to: "channels#add_user"
+      post "remove_user", to: "channels#remove_user"
     end
     get "more_posts", to: "posts#more_posts"
     get "filtered_posts", to: "posts#filtered_posts"
