@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import { addUserToChannel } from '../../actions/channels_actions';
 import Search from '../search/search'
 import Favorites from '../favorites/favorites'
+import Pinned from '../favorites/pinned'
 import Pagination from '../ui/pagination'
 import { withRouter } from 'react-router-dom'
 import ChannelSettings from './ChannelSettings'
@@ -70,7 +71,8 @@ class ChannelHeadrer extends React.Component {
                     <Search workspaceId={workspaceId}/>
                 </Modal>
                 <Modal showModal={showPinnedPosts} toggleModal={this.handleToggle("showPinnedPosts")} headerText="Pinned Posts">
-                    <Pagination items={posts.filter(post => post.pinned)} users={users} />
+                    {/* <Pagination items={posts.filter(post => post.pinned)} users={users} /> */}
+                    <Pinned/>
                 </Modal>
             </section>
         )

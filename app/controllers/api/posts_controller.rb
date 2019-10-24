@@ -1,15 +1,5 @@
 class Api::PostsController < ApplicationController
     before_action :require_logged_in
-    # before_action :is_member 
-    # before_action :is_owner bonus, update
-    
-    # def is_member  # working
-    #     # debugger
-    #     debugger
-    #     if ChannelMembership.where("member_id = #{current_user.id} AND channel_id = #{posts_params[:channel_id]}").length == 0
-    #         render json: ["unathorized access"], status: 404
-    #     end
-    # end
 
     def index
         # debugger   
@@ -73,7 +63,6 @@ class Api::PostsController < ApplicationController
             end
         end
         ChannelMembership.where(channel_id: posts_params[:channel_id], member_id: current_user.id).update(unread_count: 0)
-        # debugger
         render json: respond
     end
 
@@ -81,45 +70,24 @@ class Api::PostsController < ApplicationController
         ChannelMembership.where(channel_id: posts_params[:channel_id], member_id: current_user.id).update(unread_count: 0)
     end
 
-    # def more_posts
-    #     if(posts_params[:last_post_id] != "0")
-    #         @posts = Post.where("channel_id = #{posts_params[:channel_id]} and created_at < (#{Post.where("id = #{posts_params[:last_post_id]}").select(:created_at).to_sql})")
-    #             .order(:created_at).limit(10)
-    #     else 
-    #         @posts = Post.where("channel_id = #{posts_params[:channel_id]}").order(:created_at).limit(10)
-    #     end
-    #     ChannelMembership.where(channel_id: posts_params[:channel_id], member_id: current_user.id).update(unread_count: 0)
-    #     # debugger        
-    #     render json: @posts
-    # end
-
 
     def create
         @post = Post.new(posts_params)
         @post.author_id = current_user.id
-        # debugger
         if @post.save
-            # render :show
-            # Replace it with Actioncable
-            # .broadcast("post_channel_#{posts_params[:channel_id]}", msg: "hello")
-            # debugger
-            ################### Increase the unread count for all members
-            # ChannelMembership.
-            # 
-            # 
             ChannelMembership.increment_counter(:unread_count, ChannelMembership.where(channel_id: @post.channel_id).pluck(:id))
             Api::PostsController.broadcast_post(@post, posts_params[:channel_id])
+            channel_membership = ChannelMembership.find_by(member_id: current_user.id , channel_id: posts_params[:channel_id])
+            channel_membership.unread_count = 0
+            channel_membership.save
         else
             render @post.errors.full_messages, status: 404
         end
     end
 
     def update # not tested
-        # debugger
         @post = Post.find(params[:id])
-        # debugger
         if @post.update(posts_params)
-            # render :show
             Api::PostsController.broadcast_post(@post, @post.channel_id, true)
         else
             render @post.errors.full_messages, status: 404
@@ -141,12 +109,10 @@ class Api::PostsController < ApplicationController
         @post_like = PostLike.where("member_id = #{ current_user.id} AND post_id = #{params[:post_id]}")
 
         if @post_like.length == 0
-            # debugger
             @post_like = PostLike.new(post_id: params[:post_id], member_id: current_user.id )
             @post_like.save
             render json: { postId: @post_like.post_id, userId: @post_like.member_id }          
         else
-            # debugger
             @post_like[0].destroy
             render json: { unliked: true, postId: @post_like[0].post_id, userId: @post_like[0].member_id}
         end
@@ -154,12 +120,10 @@ class Api::PostsController < ApplicationController
     end
 
     def add_comment # Gonna be done with action cable
-        # debugger
         @comment = PostComment.new(body: posts_params[:body], post_id: posts_params[:post_id])
         @comment.author_id = current_user.id
 
         if @comment.save
-            # render :show_comment
             Api::PostsController.broadcast_comment(@comment, @comment.post.channel.id)
         else
             render @comment.errors.full_messages, status: 404
@@ -169,18 +133,13 @@ class Api::PostsController < ApplicationController
 
     def filtered_posts
         filters = filters_params
-        # debugger
         if(filters[:source] == "channels")
-            # debugger
             @posts = Post.joins(:channel).where("channels.workspace_id = #{filters[:workspace_id]}")
-            # where("workspace_id = #{filters[:workspace_id]}")
             @posts = @posts.text_like(filters[:text_like]) if filters[:text_like].present? && filters[:text_like] != ""
             @posts = @posts.created_before(filters[:created_before]) if filters[:created_before].present? && filters[:created_before] != ""
             @posts = @posts.created_after(filters[:created_after]) if filters[:created_after].present? && filters[:created_after] != ""
-            # debugger
             @posts = @posts.created_by(filters[:created_by]) if filters[:created_by].present? && filters[:created_by] != ""
             @posts = @posts.inside_channel(filters[:source_channel]) if filters[:source_channel].present? && filters[:source_channel] != ""
-            # debugger
             render json: @posts
         end
     end
@@ -193,21 +152,14 @@ class Api::PostsController < ApplicationController
     def favorite_post
         @post = Post.find(params[:post_id])
         @favorited_post = Favorite.find_by(member_id: current_user.id, favorited_id: params[:post_id], favorited_type: 'Post')
-        # Favorite.new(member_id: current_user.id, favorited_id: params[:post_id], favorited_type: "Post")
             if @favorited_post
-                # debugger
                 @favorited_post.destroy
                 render json: {unfavorited: true, post_id: params[:post_id]}
             else
-                # debugger
                 Favorite.create(member_id: current_user.id, favorited_id: params[:post_id], favorited_type: 'Post')
                 render :show   
             end
-            # rescue Exception
-        #     # debugger
-        #     Favorite.where("member_id: #{current_user.id} AND favorited_id: #{params[:post_id]} AND favorited_type = 'Post'").destroy
-        #     render json: {unfavorited: true}
-        # end
+
     end
 
     def filters_params

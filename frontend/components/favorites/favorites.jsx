@@ -13,8 +13,8 @@ class Favorites extends React.Component{
         this.changeShowedPost = this.changeShowedPost.bind(this);
     }
 
-    changeShowedPost(id){
-        this.setState({showPost: id})
+    changeShowedPost(post){
+        this.setState({showPost: post.id})
     }
 
     render (){
