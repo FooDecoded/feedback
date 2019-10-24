@@ -18,6 +18,7 @@ export default function favorites_reducer(state = { posts: {}, messages: {} }, a
                 delete newState.posts[action.post.post_id]
                 return newState;
             } else {
+                action.post.author_id = action.post.authorId
                 return { ...newState, posts: { ...newState.posts, [action.post.id]: action.post } }
 
             }

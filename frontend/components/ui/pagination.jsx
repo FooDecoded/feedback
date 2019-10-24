@@ -26,8 +26,9 @@ export default class Pagination extends React.Component {
     }
 
     render(){
+        // debugger
         let {items, pageIdx, numPages} = this.state;
-        let {users} = this.props;
+        let {users, changeShowedPost} = this.props;
         let pagesNumbers = [];
         for (let x = 0; x < numPages; x++) {
             pagesNumbers.push(x)            
@@ -36,14 +37,15 @@ export default class Pagination extends React.Component {
             <ul className="filtered-posts">
                 {
                     items.slice(pageIdx*10, pageIdx*10 + 10).map( post =>
-
-                    <li className="threads-list__item" key={post.id} >
+                    {
+                        console.log(post)
+                    return <li onClick={() => changeShowedPost(post.id)} className="threads-list__item" key={post.id} >
                         <img src={users[post["author_id"]].profileImage} alt="" className="small-avatar threads-list__avatar"/>                                    
                             <div className="thread-info">
                                 <h5 className="thread-info__owner">{users[post["author_id"]].username}</h5>
                                 <p className="thread-info__body">{post.body}</p>
                             </div>
-                    </li>
+                    </li>}
                         )
                 }
             </ul>
